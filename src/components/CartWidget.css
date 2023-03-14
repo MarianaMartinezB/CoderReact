@@ -1,0 +1,8 @@
+.logo {
+    width: 50%;
+    height: 50%;
+}
+
+.cartWidget{
+    resize: calc(50%);
+}
