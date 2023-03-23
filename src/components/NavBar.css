@@ -2,9 +2,13 @@
     display: flex;
     align-items: center;
     background-color: antiquewhite;
+    justify-content: space-between;
+    flex-wrap: none;
     justify-self: center;
     padding: 10px;
+    position: sticky;
     justify-content: space-around;
+    z-index: 300;
 }
 
 .button {
@@ -12,7 +16,13 @@
     gap: 10px;
     font-size: normal;
     border-radius: 10px;
+    border:solid;
     border-color:antiquewhite;
     font-weight: lighter;
     color:lightslategray;
+}
+
+.Brand {
+    font-size:x-large;
+    color:gray;
 }

@@ -1,6 +1,9 @@
 .ItemListContainer {
-    font-size: smaller;
     align-items: center;
     justify-self: center;
     padding: 10px;
+    font-size: 1.5rem;
+     letter-spacing: 0.1em;
+     line-height: 1.5em;
+     overflow: hidden;
 }
