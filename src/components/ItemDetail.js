@@ -4,52 +4,51 @@ import { CartContext } from "../context/CartContext"
 import ItemCount from './ItemCount'
 
 
-/* const ItemDetail = ({ id, name, price, img, stock, description}) => {
-    return (
-        <div>
-            <h2>{name}</h2>
-            <img src={Imagenes.libro1} alt={name} />
-            <h3>precio: {price}</h3>
-            <p>stock: {stock}</p>
-        </div>
-    )
-}
-export default ItemDetail */
-
-const ItemDetail = ({ id, name, price, img, stock, description}) => {
-    const [quantity, setQuantity] = useState (0)
-
+const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
+    const [quantity, setQuantity] = useState(0)
     const { addItem } = useContext(CartContext)
 
+
     const handleOnAdd = (quantity) => {
-        const serviceToAdd = {
-            id, name, price, quantity
+        const productToAdd = {
+            id, name, price, quantity, stock
         }
-        addItem(serviceToAdd)
-
         setQuantity(quantity)
-
+        addItem(productToAdd)
     }
-        return (
-            <div style={{background: 'pink', margin: 10}}>
-                <h2>{name}</h2>
-                <img src={img} alt={name} style={{ width: 500}}/>
-                <h3>Price: {price}</h3>
-                <p>Description: {description}</p>
-                <p>Stock: {stock}</p>
-                <footer>
-                    {
-                        quantity === 0 ? (
-                        <ItemCount onAdd={handleOnAdd} stock={stock}/>
-                        ) : (
-                            <Link to='/cart'>Check Out</Link>
-                        )
-                    }
-                </footer>
-                
 
-            </div>
-        )
-    }
+    return (
+        <article className="CardItem">
+            <header className="Header">
+                <h2 className="ItemHeader">
+                    {name}
+                </h2>
+            </header>
+            <picture>
+                <img src={img} alt={name} className="ItemImg"/>
+            </picture>
+            <section>
+                <p className="Info">
+                    Categoria: {category}
+                </p>
+                <p className="Info">
+                    Descripción: {description}
+                </p>
+                <p className="Info">
+                    Precio: {price}
+                </p>
+            </section>           
+            <footer className='ItemFooter'>
+                {/* {
+                    quantity > 0 ? (
+                        <Link to='/cart'>Terminar compra</Link>
+                    ) : ( */}
+                        {stock > 0 ? <ItemCount onAdd={handleOnAdd} stock={stock} /> : <div>No hay stock disponible</div>}
+                    {/* )
+                } */}
+            </footer>
+        </article>
+    )
+}
 
 export default ItemDetail
