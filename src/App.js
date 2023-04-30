@@ -4,21 +4,41 @@ import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import NavBar from "./components/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+import { Notification, NotificationProvider} from "./notification/NotificationService";
+import Login from "./components/Login";
+import { AuthProvider } from "./context/AuthContext";
+import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 
 const App = () => {
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route exact path='/' element={<ItemListContainer greeting={'Home'} />} />
-          <Route exact path='/category/:categoryId' element={<ItemListContainer greeting={'Libros por categoria'} />} />
-          <Route exact path='/category/:categoryId/subcategory/:subcategoryId' element={<ItemListContainer greeting={'Libros por categoria'} />} />
-          <Route exact path='/item/:itemId' element={<ItemDetailContainer />} />
-        </Routes>
-      </BrowserRouter>
+      <NotificationProvider>
+        <BrowserRouter>
+          <AuthProvider>
+            <CartProvider>
+              <NavBar />
+              <Routes>
+                <Route
+                  path="/"
+                  element={<ItemListContainer greeting={"Home"} />}
+                />
+                <Route
+                  path="/category/:categoryId"
+                  element={<ItemListContainer greeting={"Books by category"} />}
+                />
+                <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+                <Route path='/login' element={<Login />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+              </Routes>
+            </CartProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </NotificationProvider>
     </div>
-  )
+  );
 };
 
-export default App
+export default App;

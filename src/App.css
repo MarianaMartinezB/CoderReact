@@ -3,6 +3,7 @@
   text-decoration-color: bisque;
   color:lightslategray;
   background-color:antiquewhite;
+  font-size: 1rem;
 }
 
 .App-logo {
@@ -16,5 +17,6 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 
 

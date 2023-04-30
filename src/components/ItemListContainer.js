@@ -1,22 +1,31 @@
+import './ItemListContainer.css'
 import { useEffect, useState } from 'react'
-import { getProducts, getProductsByCategory } from "./asyncMock"
 import ItemList from './ItemList'
 import { useParams } from 'react-router-dom'
+import { collection, getDocs, query, where} from 'firebase/firestore' 
+import {db} from '../services/firebase/firebaseConfig'
 
 const ItemListContainer = ({ greeting }) => {
     const [productsState, setProductsState] = useState([])
     const [loading, setLoading] = useState(true)
-
+    const [error, setError] = useState(false)
     const { categoryId } = useParams()
 
     useEffect(() => {
-        setLoading(true)
-        const asyncFunction = categoryId ? getProductsByCategory : getProducts
+        const productsRef = categoryId 
+        ? query(collection(db, 'products'), where ('category', '==', categoryId) )
+        : collection(db, 'products')
 
-        asyncFunction(categoryId)
-            .then(products => {
-                setProductsState(products)
+        getDocs(productsRef)
+            .then(snapshot => {
+                const productsAdapted = snapshot.docs.map(doc => {
+                    const data = doc.data()
+                    return { id: doc.id, ...data }
+                })
+
+                setProductsState(productsAdapted)
             })
+
             .catch(error => {
                 console.log(error)
             })
@@ -26,7 +35,11 @@ const ItemListContainer = ({ greeting }) => {
     }, [categoryId])
 
     if(loading) {
-        return <h1>Cargando...</h1>
+        return <h1>Loading...</h1>
+    }
+
+    if(error) {
+        return <h1>Please reload page</h1>
     }
 
     if(productsState && productsState.length === 0) {
@@ -34,9 +47,11 @@ const ItemListContainer = ({ greeting }) => {
     }
 
     return (
-        <div>
+        <div className="ItemListContainer">
+        <div className='card-body' style={{width: 100}}>
             <h1>{greeting}</h1>
             <ItemList products={productsState}/>
+        </div>
         </div>
     )
 }

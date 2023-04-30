@@ -1,5 +1,5 @@
 import { useState, createContext, useContext } from "react";
-import { useNotification } from "../notification/NotificationService";
+import { useNotification } from '../notification/NotificationService';
 
 import { useNavigate } from "react-router-dom";
 
@@ -32,3 +32,4 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+ 

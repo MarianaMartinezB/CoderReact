@@ -1,0 +1,16 @@
+.product-detail-style {
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+    color: gra;
+     letter-spacing: 0.1em;
+     line-height: 1em;
+     overflow: hidden;
+     background: linear-gradient(90deg, #000000, #bba0a0, #000000);
+     background-repeat: no-repeat;
+     background-size: 80%;
+     animation: animate 10s ease-in infinite;
+     -webkit-background-clip: text;
+     background-clip: text;
+     -webkit-text-fill-color: rgba(75, 69, 69, 0);
+}

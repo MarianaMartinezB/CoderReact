@@ -2,52 +2,38 @@ import { Link } from 'react-router-dom'
 import { useContext, useState } from "react"
 import { CartContext } from "../context/CartContext"
 import ItemCount from './ItemCount'
+import { useNotification } from "../notification/NotificationService"
 
 
-const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
+const ItemDetail = ({ id, name, price, img, stock, description}) => {
     const [quantity, setQuantity] = useState(0)
     const { addItem } = useContext(CartContext)
-
+    const { setNotification } = useNotification()
 
     const handleOnAdd = (quantity) => {
         const productToAdd = {
-            id, name, price, quantity, stock
+            id, name, price, quantity
         }
         setQuantity(quantity)
         addItem(productToAdd)
+        setNotification('success' , `Added correctly ${quantity} ${name}`, 1)
+
     }
 
     return (
-        <article className="CardItem">
-            <header className="Header">
-                <h2 className="ItemHeader">
-                    {name}
-                </h2>
-            </header>
-            <picture>
-                <img src={img} alt={name} className="ItemImg"/>
-            </picture>
-            <section>
-                <p className="Info">
-                    Categoria: {category}
-                </p>
-                <p className="Info">
-                    Descripción: {description}
-                </p>
-                <p className="Info">
-                    Precio: {price}
-                </p>
-            </section>           
-            <footer className='ItemFooter'>
-                {/* {
-                    quantity > 0 ? (
-                        <Link to='/cart'>Terminar compra</Link>
-                    ) : ( */}
-                        {stock > 0 ? <ItemCount onAdd={handleOnAdd} stock={stock} /> : <div>No hay stock disponible</div>}
-                    {/* )
-                } */}
+        <div className= 'container card' style={{width: 500, background: '#DEB992'}}>
+        <div className='card-body' style={{background: '#DEB992', margin: 10}}>
+            <h2>{name}</h2>
+            <img src={img} alt={name} style={{ width: 100}}/>
+            <h3>Price: $ {price}</h3>
+            <h4>Description: {description}</h4>
+            <p>Stock: {stock}</p>
+            <footer>
+                {stock ? <ItemCount onAdd={handleOnAdd} stock={stock}/> : <div><h4 style={{color: 'red'}}>Out of stock</h4></div>}
             </footer>
-        </article>
+            </div>
+
+        </div>
     )
 }
 

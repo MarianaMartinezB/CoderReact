@@ -1,93 +1,129 @@
-import { useContext, useState } from 'react'
-import { CartContext } from '../../context/CartContext'
-import { db } from '../../services/firebase/firebaseConfig'
-import { documentId, getDocs, query, collection, where, writeBatch, addDoc } from 'firebase/firestore'
-import { useNotification } from '../../notification/NotificationService'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from "react";
+import { CartContext } from '../context/CartContext';
+import { db } from '../services/firebase/firebaseConfig';
+import { documentId, getDocs, query, collection, where, writeBatch, addDoc} from "firebase/firestore";
+import { useNotification } from '../notification/NotificationService';
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
-    const [orderId, setOrderId] = useState('')
-    const [loading, setLoading] = useState(false)
-    const { cart, total, clearCart } = useContext(CartContext)
+  const [orderId, setOrderId] = useState("");
+  const { cart, total, clearCart } = useContext(CartContext);
+  const { setNotification } = useNotification();
+  const navigate = useNavigate();
 
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
 
-    const { setNotification } = useNotification()
+  const handleConfirm = async (e) => {
+    e.preventDefault();
 
-    const navigate = useNavigate()
-
-    const handleConfirm = async (userData) => {
-        try{ 
-            setLoading(true)
-            const objOrder = {
-                buyer: {
-                    name: 'sadasd',
-                    phone: 'asdasd',
-                    address: 'asdasd'
-                },
-                items: cart,
-                total: total
-            }
-
-            const ids = cart.map(prod => prod.id)
-
-            const productRef = query(collection(db, 'products'), where(documentId(), 'in', ids))
-
-            const productsAddedFromFirestore = await getDocs(productRef)
-
-            const { docs } = productsAddedFromFirestore
-
-            const batch = writeBatch(db)
-            const outOfStock = []
-
-            docs.forEach(doc => {
-                const dataDoc = doc.data()
-                const stockDb = dataDoc.stock
-
-                const productAddedToCart = cart.find(prod => prod.id === doc.id)
-                const prodQuantity = productAddedToCart?.quantity
-
-                if(stockDb >= prodQuantity) {
-                    batch.update(doc.ref, { stock: stockDb - prodQuantity})
-                } else {
-                    outOfStock.push({ id: doc, ...dataDoc})
-                }
-            })
-
-            if(outOfStock.length === 0) {
-                batch.commit()
-
-                const orderRef = collection(db, 'orders')
-
-                const orderAdded = await addDoc(orderRef, objOrder)
-                clearCart()
-                setOrderId(orderAdded.id)
-
-                setTimeout(() => {
-                    navigate('/')
-                }, 5000)
-
-            } else {
-                setNotification('error', 'Hay productos que no tienen stock disponible')
-            } 
-        } catch (error) {
-            setNotification('error', 'Hubo un error generando la orden')
-        } finally {
-            setLoading(false)
-        }
-    }
-    
-    if(loading) {
-        return <h1>Se esta generando su orden...</h1>
+    if (!name || !phone || !address) {
+      setNotification("error", "Please fill in all the fields");
+      return;
     }
 
-    return (
-        <div>
-            <h1>Checkout</h1>
+    const objOrder = {
+      buyer: {
+        name: name,
+        phone: phone,
+        address: address,
+      },
+      items: cart,
+      total: total,
+    };
 
-            {/* <Form onConfirm={handleConfirm}/> */}
-            { orderId ? <h2>El id de su orden es: {orderId}</h2> : <button onClick={handleConfirm}>Generar orden</button> }
-        </div>
-    )
-}
+    console.log(objOrder);
 
-export default Checkout
+    const ids = cart.map((prod) => prod.id);
+
+    const productRef = query(
+      collection(db, "products"),
+      where(documentId(), "in", ids)
+    );
+
+    const productsAddedFromFirestore = await getDocs(productRef);
+
+    const { docs } = productsAddedFromFirestore;
+
+    const batch = writeBatch(db);
+    const outOfStock = [];
+
+    docs.forEach((doc) => {
+      const dataDoc = doc.data();
+      const stockDb = dataDoc.stock;
+
+      const productAddedToCart = cart.find((prod) => prod.id === doc.id);
+      const prodQuantity = productAddedToCart?.quantity;
+
+      if (stockDb >= prodQuantity) {
+        batch.update(doc.ref, { stock: stockDb - prodQuantity });
+      } else {
+        outOfStock.push({ id: doc, ...dataDoc });
+      }
+    });
+
+    if (outOfStock.length === 0) {
+      batch.commit();
+
+      const orderRef = collection(db, "orders");
+
+      const orderAdded = await addDoc(orderRef, objOrder);
+      clearCart();
+
+      setOrderId(orderAdded.id);
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
+    } else {
+      setNotification("error", "No available stock");
+    }
+  };
+
+  return (
+    <div>
+      <h1>CheckOut</h1>
+      {orderId ? (
+        <h2>Order completed successfully. Your order id is: {orderId}</h2>
+      ) : (
+        <form onSubmit={handleConfirm} className="form-style">
+          <label>
+            Name:
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="checkout-input"
+            />
+          </label>
+          <br />
+          <label>
+            Phone:
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="checkout-input"
+            />
+          </label>
+          <br />
+          <label>
+            Address:
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="checkout-input"
+            />
+          </label>
+          <br />
+          <button type="submit" className="checkout-button">
+            Generate Order
+          </button>
+        </form>
+      )}
+    </div>
+  );
+};
+
+export default Checkout;
