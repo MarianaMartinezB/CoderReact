@@ -1,34 +1,108 @@
-# -Ecomm APP
+## Mi proyecto Ecommerce - REACT
+## _Tienda de Libros de coaching y desarrollo personal
 
-#rubricas: El archivo debe estar en el root del proyecto para dar una breve
-introducción acerca de su proyecto y qué ideas o enfoque eligió para el
-mismo. Si incluyó dependencias extra por npm (por fuera de las trabajadas en
-clase), aparte debe hacer un resumen explicando sus decisiones.
 
-> Ecommerce of Coaching and personal development books (asd)
 
-This product is being built
+Proyecto realizado como parte del curso de React de Coderhouse. Comision 39605
 
-## Running Locally
+- Incluye Base de Datos creada en Firebase
+- HTML 
+- Utilizacion de librerías (Boostrap)
+- 
 
-```bash
-$ git clone asd
-$ cd React_Entrega01
-$ npm install
-$ npm start
-```
+
+## Features
+
+El sitio cuenta con los siguientes features:
+
+🔘Inicio (Componente APP inicial, contiene el listado de productos ofrecidos en el sitio)
+
+-------------------------------------------------
+
+
+
+🔘Flow  (Componente Navbar)
+
+-------------------------------------------------
+
+
+
+🔘Firebase  (Servicio de Base de Datos utilizado, elegido por ser el sugerido en clase)
+
+
+
+-------------------------------------------------
+
+
+
+🔘Cart  (componente CART encargado de consolidar el detalle de los libros  comprados)
+
+-------------------------------------------------
+
+
+
+🔘Checkout (componente que ejecuta la compra, contiene el armado de la orden, los datos del cliente, etc)
+
+-------------------------------------------------
+
+
+
+🔘FInalizacion de la orden  (efectúa los calculos finales de la orden y actualiza la base de datos)
+
+
+
+-------------------------------------------------
+
+
+
+🔘Navegabilidad 
+
+-------------------------------------------------
+
+
+
+🔘Bibliotecas extra (se utilizaron las blibiotecas sugeridas en clase por familiaridad con ellas y desconocimiento de otras)
+
+- Boostrap para los estilos (https://getbootstrap.com/) se pegaron en el index.html los links de boostrap del sitio mencionado anteriormente.
+
+
+
+-------------------------------------------------
+
+
+
+🔘Readme  
+En el presente documento se indica el uso de librerias, entro otros aspectos relevantes.
 
 
 
 ## Built Using
 
+
 - [Create-React-App](https://create-react-app.dev/)
 - [Vercel](https://vercel.com)
 - [Firebase](https://firebase.com)
+- [Boostrap](https://getbootstrap.com/)
+
+
+
+
+## Installation
+## Running Locally
+
+```bash
+$ git clone https://github.com/MarianaMartinezB/CoderReact.git
+$ cd CoderReact
+$ npm install
+$ npm start
+```
+## Environment Variables
+
+No incluidas en este trabajo
 
 ## Test App 
 
-[Deploy](https://react-entrega01-lemon.vercel.app/)
+[Deploy] https://coder-react-virid.vercel.app/
 
 
 
