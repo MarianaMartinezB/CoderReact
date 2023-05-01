@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+## Mi proyecto Ecommerce - REACT
+## _Tienda de Libros de coaching y desarrollo personal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+Proyecto realizado como parte del curso de React de Coderhouse. Comision 39605
 
-### `npm start`
+- Incluye Base de Datos creada en Firebase
+- HTML 
+- Utilizacion de librerías (Boostrap)
+- 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+El sitio cuenta con los siguientes features:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🔘Inicio (Componente APP inicial, contiene el listado de productos ofrecidos en el sitio)
 
-### `npm run build`
+-------------------------------------------------
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+🔘Flow  (Componente Navbar)
 
-### `npm run eject`
+-------------------------------------------------
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+🔘Firebase  (Servicio de Base de Datos utilizado, elegido por ser el sugerido en clase)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-------------------------------------------------
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+🔘Cart  (componente CART encargado de consolidar el detalle de los libros  comprados)
 
-### Analyzing the Bundle Size
+-------------------------------------------------
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+🔘Checkout (componente que ejecuta la compra, contiene el armado de la orden, los datos del cliente, etc)
 
-### Advanced Configuration
+-------------------------------------------------
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+🔘FInalizacion de la orden  (efectúa los calculos finales de la orden y actualiza la base de datos)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+-------------------------------------------------
+
+
+
+🔘Navegabilidad 
+
+-------------------------------------------------
+
+
+
+🔘Bibliotecas extra (se utilizaron las blibiotecas sugeridas en clase por familiaridad con ellas y desconocimiento de otras)
+
+- Boostrap para los estilos (https://getbootstrap.com/) se pegaron en el index.html los links de boostrap del sitio mencionado anteriormente.
+
+
+
+-------------------------------------------------
+
+
+
+🔘Readme  
+En el presente documento se indica el uso de librerias, entro otros aspectos relevantes.
+
+
+
+## Built Using
+
+
+- [Create-React-App](https://create-react-app.dev/)
+- [Vercel](https://vercel.com)
+- [Firebase](https://firebase.com)
+- [Boostrap](https://getbootstrap.com/)
+
+
+
+
+## Installation
+## Running Locally
+
+```bash
+$ git clone https://github.com/MarianaMartinezB/CoderReact.git
+$ cd CoderReact
+$ npm install
+$ npm start
+```
+## Environment Variables
+
+No incluidas en este trabajo
+
+## Test App 
+
+[Deploy] https://coder-react-virid.vercel.app/
